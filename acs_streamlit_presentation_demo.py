@@ -10,7 +10,6 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 from PIL import Image
 import numpy as np
 
-
 np.random.seed(31415) 
 
 # Showing an image of the titanic
@@ -18,21 +17,16 @@ image = Image.open('Sea_Trials_of_RMS_Titanic,_2nd_of_April_1912.JPG')
 st.image(image, caption='Picture of the Titanic',
          use_column_width=True)
 
-
 # Reading in the titanic training dataset
 train = pd.read_csv("./titanic/train.csv")
 
-
 # Doing some data preprocessing so that the random forests classifier can use the input data
-
-# Checking if there are any input records which are blank in the dataset
-# st.write(train.isnull().sum())
-
 # It looks like there are a number of records where the age of the Passengers were not recorded 
 # and there are a lot of records where the cabin wasn't recorded. We aren't interested in the cabin
 # so we will exclude it as an input variable. With Age though, this might be an important predictor
 # of survival. Therefore we have two choices, either we replace them via inputation (eg. give them the mean age)
 # or we drop these records. For now we will drop these records.
+# st.write(train.isnull().sum())
 train = train.dropna(subset=['Age'])
 
 # Converting Sex into a numeric variable
@@ -109,7 +103,6 @@ matrix = matrix.rename(columns={0:'Actual Died', 1:'Actual Survived'}, index={0:
 # Calculating the accuracy score
 accuracy_of_model = accuracy_score(y_test, y_pred_test)
 accuracy_of_model_percent = accuracy_of_model *100
-
 
 # Showing the accuracy of the model
 st.header('Accuracy')
